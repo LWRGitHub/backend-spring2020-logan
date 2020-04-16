@@ -40,6 +40,46 @@ function argumentPractice(shouldIRun = 10){
 
 argumentPractice(20);
 
+// Arguments are provided in the parenthesis of the FUNCTION CALL.
 argumentPractice(true);
 
 console.log("hello");
+
+
+// CALLBACKS
+
+// $(document).ready( function () {} );
+
+console.log();
+Math.random();
+
+function callBackReader(param){
+
+    console.log("callBackReader has started");
+
+    console.log("our only parameter was given the value: " + param);
+
+    if(typeof parameter === "function"){
+        console.log("The datatype is of this value is a function.");
+
+        setTimeout(parameter(), 3000);
+
+    } else{
+        console.log("The parameter is holding something else, should only be a function.")
+    }
+
+    console.log("callBackReader has ended.");
+
+}
+
+
+callBackReader(function() {
+    console.log("hello there!");
+});
+
+// typeof keyword, returns a string that describes the dattype of the item after it.
+console.log(typeof "something");
+
+
+//Testing arrays is a little special copared to the typeof keyword
+console.log(Array.isArray(myArr));
