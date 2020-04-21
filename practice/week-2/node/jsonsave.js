@@ -1,3 +1,5 @@
+const fs = require("fs");
+
 let objectToSave = {
     key1: "Some key",
     isTrue: false,
@@ -5,4 +7,9 @@ let objectToSave = {
     totalAmount: 100900
 }
 
-let converted = JSON.stringify(objectToSave);
+let jsonObj = JSON.stringify(objectToSave);
+
+fs.writeFileSync("jsonFile.json", jsonObj, "utf8");
+
+
+fs.readFileSync();

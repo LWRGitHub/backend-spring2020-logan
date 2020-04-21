@@ -4,3 +4,7 @@ let objectToSave = {
     someFunction: function() {console.log("hello");},
     totalAmount: 100900
 }
+
+let jsonObj = JSON.stringify(objectToSave);
+
+fs.writeFileSync("jsonFile.json", jsonObj, "utf8");
