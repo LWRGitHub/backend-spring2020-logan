@@ -84,11 +84,16 @@ Welcome to my ToDo Script! The followings commands can be typed after "node todo
 
 
 function checkIndex(noteNumber){
+
     if(isNaN(noteNumber)){
         return "Please enter a number not a string!";
-    }else{
+    } else if(noteNumber <= 0){
+        return `Enter a positive number.`
+    } else {
         let index = parseInt(noteNumber - 1);
     }
+
+    
    
     if(index > data.notes.length){
         console.log(`Notes ${index + 1} does not exist!`);
