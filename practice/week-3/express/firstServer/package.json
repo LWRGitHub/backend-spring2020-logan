@@ -1,0 +1,14 @@
+{
+  "name": "firstserver",
+  "version": "1.0.0",
+  "description": "epress learn meda",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Logan",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
