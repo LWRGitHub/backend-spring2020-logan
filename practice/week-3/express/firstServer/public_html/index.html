@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <meta sharset="utf-8">
+
+        <title>The HTML5 Express Page</title>
+        <meta name="description" content="The HTML5 Express Page">
+        <meta name="Logan" content="SitePoint">
+
+        <style>
+            body{
+                font-size:48ps;
+            }
+
+            input{
+                font-size: 48px;
+            }
+
+            button{
+                font-size: 48px;
+            }
+        </style>
+
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+
+    </head>
+
+    <body>
+
+        <form>
+            <label for="age">Enter Your Age</label>
+            <input type="text" id="age"/>
+        </form>
+
+        <button>Submit Age Number To Server</button>
+
+        <script>
+            //CODE AFTER THIS IS JAVASCRIPT 
+
+            $(document).ready(() => {
+                let ageValue = $("#age").val();
+                //console.log("The value for age is " + ageValue);
+
+                // AJAX POST CALL using jQuery
+                $.post("localhost:3000", {}, (data, error) =>{
+                    console.log("We have sent something AND the server has reponded!");
+                });
+            });
+
+            // CODE BEFORE THIS IS JAVASCRIPT   
+        </script>
+
+    </body>
+
+</html>
+
+
+<!--
+
+    "Classic Syntax"
+    function(tiem, space){
+        let spacetime = time * space;
+        return spacetime;
+    }
+
+    "Fat Arro Syntax"
+    (time, space) => {
+        let spacetime = time * space;
+        return spacetime;
+    }
+
+    (time) => {return time * 10;}
+
+    "Shorthand Fat Arrow Syntax" only available to single argument with single statement
+    time => return tiem * 10
+-->
+
+
