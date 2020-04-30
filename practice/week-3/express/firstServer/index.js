@@ -1,5 +1,6 @@
 // Including the Express package for our script.
 const express = require("express");
+const bodyParser = require("body-parser");
 
 // Run the Express server.
 const app = express();
@@ -16,9 +17,22 @@ http.listen(port);
 // Express Routes
 // epress.static("./public_html") -> used to tell Epress that it is a directory/folder.
 
-app.use( "/client", express.static( "./public_html") );
-app.use( "/secretwebpage", express.static("./secret") );
-app.use( "/", express.static("./publec_html") );
+// Uses body-parser so we can read the JSON from the front-end (webpage).
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+
+app.use( "/", express.static( "./public_html") );
+
+app.post("/submitAge", (request, response) => {
+    console.log(request.body);
+    let canDrink = (request.body.age >= 21);
+
+    let dataToSendBackObject ={
+        "canDrink": canDrink
+    }
+
+    response.send(dataToSendBackObject);
+});
 
 // Signify Express Server is running.
 console.log(`Express is now running on port ${port}`);
