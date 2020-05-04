@@ -2,6 +2,22 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 
+const fs = require("fs");
+const filename = "history.json";
+let tempAgeObject ={
+    "historyOfSubmiddions": []
+};
+
+if(fs.existsSync(filename)){
+    let historyString = fs.readFileSync(filename, "utf8");
+    tempAgeObject = JSON.parse(historyString);
+} else {
+    dataToSave = JSON.stringify(tempAgeObject);
+    fs.writeFileSync(filename, dataToSave, "utf8");
+}
+
+
+
 // Run the Express server.
 const app = express();
 
@@ -26,6 +42,12 @@ app.use( "/", express.static( "./public_html") );
 app.post("/submitAge", (request, response) => {
     console.log(request.body);
     let canDrink = (request.body.age >= 21);
+
+    // Adds the data we just go to the temparay object, coverts the object to JSON, and saves the new JSON to file that is described in filename variable..
+    tempAgeObject.historyOfSubmiddions.push(request.body);
+    let stringToWrite = JSON.stringify(tempAgeObject);
+    fs.writeFileSync(filename, stringToWrite, "utf8");
+
 
     let dataToSendBackObject ={
         "canDrink": canDrink
