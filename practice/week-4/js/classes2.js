@@ -65,18 +65,18 @@ class Car extends Vehicle {
     }
 
     //Homework: Allow me to customize how many gallons I want to transfer. Currently I only transfer 1 gallon as it is written within the code.
-    refuelUsing(car){
+    refuelUsing(car, num){
 
-        if(car.getCurrentFuel() > 2){
+        
 
-            if(car.getCurrentFuel() > 0){
+            if(car.getCurrentFuel() > num){
                 console.log(`${this.manufacturer} ${this.model} already has fuel, we don't need to take ${car.manufacturer} ${car.model}'s fuel!`);
             } else {
                 this.setLicense(1);
                 car.setCurentFuel(car.getCurrentFuel() - 1);
-                console.log(`${this.manufacturer} ${this.model} has recieved 1 gallon of fuel form ${car.manufacturer} ${car.model}.`)
+                console.log(`${car.manufacturer} ${car.model} only has ${car.getCurrentFuel()} please ask for a number that is less than ${car.getCurrentFuel()}.`)
             }
-        }
+        
     }
 
 }
@@ -93,15 +93,17 @@ class ElectricCar extends Vehicle {
 }
 
 class Airplane extends Vehicle {
-    constructor() {
-        super();
-        this.model = null;
-        this.engineCount = null;
-        this.seats = null;
-        this.maxCapacityLB = null;
-        this.fuelEconomy = null;
+    constructor(manufacturer, model, color, topSpeedMPH, seats, model, engineCount, maxCapacityLB, fuelEconomy) {
+        super(manufacturer, model, color, topSpeedMPH);
+        this.engineCount = engineCount;
+        this.maxCapacityLB = maxCapacityLB;
+        this.fuelEconomy = fuelEconomy;
     }
 }
+
+let air1 = new Airplane("Big Jet", "C4", "White", "gasoline", 194.7, 1000, 2000, 300, 1000, "N963RD4BJ", 4, 9000, "The Best");
+
+console.log(air1);
 
 let firstCar = new Car("Honda", "Accord", "black", "gasoline", 14.8, 25, 155, 5);
 
@@ -137,4 +139,7 @@ secondCar.refuelUsing(firstCar);
 
 firstCar.setCurentFuel();
 secondCar.getCurrentFuel();
+
+
+
 
