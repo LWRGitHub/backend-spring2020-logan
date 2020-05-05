@@ -1,12 +1,11 @@
-class Car extends Vehicle {
-    constructor(manufacturer, model, color, fuelType, fuelCapacityGallons, mpg, topSpeedMPH, seats) {
+class Vehicle {
+    constructor(manufacturer, color, fuelType, fuelCapacityGallons, mpg, topSpeedMPH, seats) {
         // super calls the parent's constructor when we build a car object.
         super(manufacturer, color, topSpeedMPH);
         this.seats = seats;
         this.fuelType = fuelType;
         this.maxTankGallons = fuelCapacityGallons;
         this.currentTankGallons = fuelCapacityGallons / 2;
-        this.license = null;
         this.model = model;
         this.mpg = mpg;
     }
@@ -16,7 +15,6 @@ class Car extends Vehicle {
 class Airplane extends Vehicle {
     constructor(manufacturer, model, color, fuelType, fuelCapacityGallons, mpg, topSpeedMPH, seats, model, engineCount, maxCapacityLB, fuelEconomy) {
         super(manufacturer, model, color, fuelType, fuelCapacityGallons, mpg, topSpeedMPH, seats);
-        this.model = model;
         this.engineCount = engineCount;
         this.maxCapacityLB = maxCapacityLB;
         this.fuelEconomy = fuelEconomy;

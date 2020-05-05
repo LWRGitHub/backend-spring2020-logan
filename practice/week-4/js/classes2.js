@@ -28,6 +28,12 @@ class Car extends Vehicle {
 
     getCurrentFuel() {
         console.log(`${this.manufacturer} ${this.model} has a total of ${this.currentTankGallons} gallons of gas left.`);
+
+        return this.currentTankGallons;
+    }
+
+    setCurentFuel(fuelValue){
+        this.currentTankGallons = fuelValue;
     }
 
     refuel(gallons) {
@@ -55,6 +61,21 @@ class Car extends Vehicle {
             this.currentTankGallons = this.currentTankGallons - gallonsToBurn;
         } else {
             console.log(`${this.manufacturer} ${this.model} cannot go that far! It doesn't have enough fuel.`);
+        }
+    }
+
+    //Homework: Allow me to customize how many gallons I want to transfer. Currently I only transfer 1 gallon as it is written within the code.
+    refuelUsing(car){
+
+        if(car.getCurrentFuel() > 2){
+
+            if(car.getCurrentFuel() > 0){
+                console.log(`${this.manufacturer} ${this.model} already has fuel, we don't need to take ${car.manufacturer} ${car.model}'s fuel!`);
+            } else {
+                this.setLicense(1);
+                car.setCurentFuel(car.getCurrentFuel() - 1);
+                console.log(`${this.manufacturer} ${this.model} has recieved 1 gallon of fuel form ${car.manufacturer} ${car.model}.`)
+            }
         }
     }
 
@@ -108,3 +129,12 @@ console.log(secondCar);
 
 secondCar.travel(50);
 secondCar.getCurrentFuel();
+
+
+secondCar.setCurentFuel(0);
+
+secondCar.refuelUsing(firstCar);
+
+firstCar.setCurentFuel();
+secondCar.getCurrentFuel();
+
