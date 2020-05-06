@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <meta sharset="utf-8">
+
+        <title>Todo "App"</title>
+        <meta name="description" content="The HTML5 Express Page">
+        <meta name="Logan" content="SitePoint">
+
+        <style>
+          
+        </style>
+
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+
+    </head>
+
+    <body>
+
+        <script>
+            $(document).ready(() => {
+
+                let objectToSend = {
+                    note: "Do Something.",
+                    author: "Logan"
+                }
+
+                $.post("http://localhost:3000/newNote", objectToSend, (dataToGet) => {
+                    console.log(dataToGet);
+                });
+
+            });
+        </script>
+
+    </body>
+
+</html>
