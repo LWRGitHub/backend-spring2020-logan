@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 const filename = "./users/default_user.json";
 let data = {
     "notes": []
-}
+};
 
 if (fs.existsSync(filename)){
     const read = fs.readFileSync( filename, "utf8");
@@ -56,11 +56,62 @@ app.post("/newNote", (request, response) => {
     // data.notes.push(new Note(request.body.note, request.body.author));
 
     // Save data to file
+    let converted = JSON.stringify(data);
+    fs.writeFileSync(filename, converted, "utf8");
 
+    //Building object to send back
     let datatToSend = {
         saveStatus: 0
     }
 
+    
+   
     response.send(datatToSend);
+    response.sendStatus(500)
 
 });
+
+//Route to update a specific note.
+
+//Route for deleting a spacific note.
+app.post("/deleteNote", (req, res) => {
+    let noteToDelete = req.body;
+
+    //combin the create data number and author to create a unique "id"
+    let noteID = noteToDelete.crreate_data + noteToDelete.author;
+
+    for(let i = 0; i < data.notes.lenght; i++){
+        let currentNote = data.notes[i];
+        let currentNoteID = curentNote.create_date + currentNote.author;
+
+        if(noteID === currentNoteID){
+            data.notes.splice(i, 1);
+
+            let datatToSend = {
+                deletStatus: 0
+            }
+
+            res.send(datatToSend)
+
+            return;
+            //break; // stops the whole loop.
+        } else {
+            continue; // goals to the next loop.
+        }
+
+        let datatToSend = {
+            deletStatus: 1
+        }
+
+        res.send(datatToSend);
+    }
+
+});
+
+//Route for markinga note complete.
+
+//Route for reading all notes.
+app.post("/readNotes", (req, res) => {
+    res.send(data);
+});
+
