@@ -24,13 +24,23 @@
             $(document).ready(() => {
 
                 let objectToSend = {
-                    note: "Do Something.",
-                    author: "Logan"
-                }
+                    updated_note: "Do Something.",
+                    author: "Logan",
+                    creat_date: 158868606117
+                };
 
-                $.post("http://localhost:3000/newNote", objectToSend, (dataToGet) => {
-                    console.log(dataToGet);
+                $.post("http://localhost:3000/markComplete", objectToSend, (dataToGet) =>{
+                    console.log(`Server says: ${dataToGet.markedCompleted}`)
                 });
+
+                // $.post("http://localhost:3000/updateNote", objectToSend, (dataToGet) => 
+                // {
+                //     console.log(`Server says: ${dataToGet.updatedStatus}`)
+                // });
+
+                // $.post("http://localhost:3000/newNote", objectToSend, (dataToGet) => {
+                //     console.log(dataToGet);
+                // });
 
             });
         </script>

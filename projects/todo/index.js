@@ -87,11 +87,11 @@ app.post("/deleteNote", (req, res) => {
         if(noteID === currentNoteID){
             data.notes.splice(i, 1);
 
-            let datatToSend = {
-                deletStatus: 0
+            let dataToSend = {
+                deleteStatus: 0
             }
 
-            res.send(datatToSend)
+            res.send(dataToSend)
 
             return;
             //break; // stops the whole loop.
@@ -99,14 +99,53 @@ app.post("/deleteNote", (req, res) => {
             continue; // goals to the next loop.
         }
 
-        let datatToSend = {
-            deletStatus: 1
+        let dataToSend = {
+            deleteStatus: 1
         }
 
-        res.send(datatToSend);
+        res.send(dataToSend);
     }
 
 });
+
+app.post("/updateNote", (req, res) =>{
+    let noteToUpdate = req.body;
+
+    const noteToUpdateID = req.body.create_date + req.Body.author;
+
+    for(let i = 0; i < data.notes.length; i++){
+        let currentNote = data.notes[i];
+
+        const currentNoteID = currentNote.create_date + currentNote.author;
+
+        if(noteToUpdateID === currentNoteID){
+            noteToUpdate.note = noteToUpdate.update_note;
+
+            // Save data to file
+            let converted = JSON.stringify(data);
+            fs.writeFileSync(filename, converted, "utf8");
+
+            const dataToSend = {
+                upatedStatus: 0
+            };
+
+            res.send(dataToSend);
+
+            return;
+        } else {
+            continue;
+        }
+    } 
+
+    const dataToSend = {
+        upateStatus: 1
+    }
+
+    res.send(dataToSend);
+
+});
+
+
 
 //Route for markinga note complete.
 
@@ -115,3 +154,46 @@ app.post("/readNotes", (req, res) => {
     res.send(data);
 });
 
+
+
+
+
+
+
+
+
+
+
+app.post("/markComplete", (req, res) => {
+    let noteToComplete = req.body;
+
+    //combin the create data number and author to create a unique "id"
+    let noteID = noteToComplete.crreate_data + noteToComplete.author;
+
+    for(let i = 0; i < data.notes.lenght; i++){
+        let currentNote = data.notes[i];
+        let currentNoteID = curentNote.create_date + currentNote.author;
+
+        if(noteID === currentNoteID){
+            data.notes[i].completed_status = true;
+
+            let dataToSend = {
+                deleteStatus: 0
+            }
+
+            res.send(dataToSend)
+
+            return;
+            //break; // stops the whole loop.
+        } else {
+            continue; // goals to the next loop.
+        }
+
+        let dataToSend = {
+            deleteStatus: 1
+        }
+
+        res.send(dataToSend);
+    }
+
+});
