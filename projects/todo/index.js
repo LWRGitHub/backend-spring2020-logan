@@ -1,4 +1,3 @@
-// Setting up Express server.
 const fs = require("fs");
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -11,29 +10,23 @@ http.listen(port);
 console.log("Express is running on port: " + port);
 // Finished Express server setup.
 
-// Setting up body-arser with Express.
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-// Finished connecting body-parser with express.
 
-// Setting up out save file.
 const filename = "./users/default_user.json";
 let data = {
     "notes": []
 };
 
 if (fs.existsSync(filename)){
-    const read = fs.readFileSync( filename, "utf8");
+    const read = fs.readFileSync(filename, "utf8");
     data = JSON.parse(read);
 } else {
     const converted = JSON.stringify(data);
     fs.writeFileSync(filename, converted, "utf8");
 }
-//Finished setting up save file.
 
-//Class definition for notes
-
-class Note{
+class Note {
     constructor(note, author){
         this.note = note;
         this.author = author;
@@ -42,158 +35,139 @@ class Note{
     }
 }
 
-//End class defintion for notes
-
-//Todo Routes
 app.use("/", express.static("public_html/"));
 
-app.post("/newNote", (request, response) => {
-    let recivedData = request.body;
 
-    let newNoteObject = new Note(recivedData.note, recivedData.author);
+app.post("/newNote", (request, response) =>{
+    let recievedData = request.body;
+    let newNoteObject = new Note(recievedData.note, recievedData.author);
 
     data.notes.push(newNoteObject);
     // data.notes.push(new Note(request.body.note, request.body.author));
 
-    // Save data to file
     let converted = JSON.stringify(data);
     fs.writeFileSync(filename, converted, "utf8");
 
-    //Building object to send back
-    let datatToSend = {
+    let dataToSend = {
         saveStatus: 0
-    }
+    };
 
-    
-   
-    response.send(datatToSend);
-    response.sendStatus(500)
+    response.send(dataToSend);
 
 });
 
-//Route to update a specific note.
 
-//Route for deleting a spacific note.
-app.post("/deleteNote", (req, res) => {
+app.post("/deleteNote", (req, res) =>{
     let noteToDelete = req.body;
 
-    //combin the create data number and author to create a unique "id"
-    let noteID = noteToDelete.crreate_data + noteToDelete.author;
+    // Combine the create date number and author to create a unique "id".
+    let noteID = noteToDelete.create_date + noteToDelete.author;
 
-    for(let i = 0; i < data.notes.lenght; i++){
+    for (let i = 0; i < data.notes.length; i++){
         let currentNote = data.notes[i];
-        let currentNoteID = curentNote.create_date + currentNote.author;
+        let currentNoteID = currentNote.create_date + currentNote.author;
 
-        if(noteID === currentNoteID){
+        if (noteID === currentNoteID){
             data.notes.splice(i, 1);
 
-            let dataToSend = {
-                deleteStatus: 0
-            }
-
-            res.send(dataToSend)
-
-            return;
-            //break; // stops the whole loop.
-        } else {
-            continue; // goals to the next loop.
-        }
-
-        let dataToSend = {
-            deleteStatus: 1
-        }
-
-        res.send(dataToSend);
-    }
-
-});
-
-app.post("/updateNote", (req, res) =>{
-    let noteToUpdate = req.body;
-
-    const noteToUpdateID = req.body.create_date + req.Body.author;
-
-    for(let i = 0; i < data.notes.length; i++){
-        let currentNote = data.notes[i];
-
-        const currentNoteID = currentNote.create_date + currentNote.author;
-
-        if(noteToUpdateID === currentNoteID){
-            noteToUpdate.note = noteToUpdate.update_note;
-
-            // Save data to file
             let converted = JSON.stringify(data);
             fs.writeFileSync(filename, converted, "utf8");
 
-            const dataToSend = {
-                upatedStatus: 0
+            let dataToSend = {
+                deleteStatus: 0
             };
 
             res.send(dataToSend);
 
-            return;
+            return; 
         } else {
-            continue;
+            continue; // goes to the next loop.
         }
-    } 
-
-    const dataToSend = {
-        upateStatus: 1
     }
+
+    let dataToSend = {
+        deleteStatus: 1
+    };
 
     res.send(dataToSend);
 
 });
 
 
+app.post("/updateNote", (req, res) =>{
+    let noteToUpdate = req.body;
 
-//Route for markinga note complete.
+    const noteToUpdateID = req.body.create_date + req.body.author;
+    console.log(noteToUpdate);
 
-//Route for reading all notes.
+    for (let i = 0; i < data.notes.length; i++){
+        let currentNote = data.notes[i];
+        console.log(i + ": " + currentNote, data.notes[i]);
+        const currentNoteID = currentNote.create_date + currentNote.author;
+
+        if (noteToUpdateID === currentNoteID){
+            currentNote.note = noteToUpdate.updated_note;
+
+            const converted = JSON.stringify(data);
+            fs.writeFileSync(filename, converted, "utf8");
+
+            const dataToSend = {
+                updatedStatus: 0
+            };
+            
+            res.send(dataToSend);
+
+            return;
+        } else {
+            continue;
+        }
+    }
+
+    const dataToSend = {
+        updateStatus: 1
+    };
+
+    res.send(dataToSend);
+
+});
+
 app.post("/readNotes", (req, res) => {
     res.send(data);
 });
 
 
-
-
-
-
-
-
-
-
-
 app.post("/markComplete", (req, res) => {
     let noteToComplete = req.body;
 
-    //combin the create data number and author to create a unique "id"
-    let noteID = noteToComplete.crreate_data + noteToComplete.author;
+    // Combine the create date number and author to create a unique "id".
+    let noteID = noteToComplete.create_date + noteToComplete.author;
 
-    for(let i = 0; i < data.notes.lenght; i++){
+    for (let i = 0; i < data.notes.length; i++) {
         let currentNote = data.notes[i];
-        let currentNoteID = curentNote.create_date + currentNote.author;
+        let currentNoteID = currentNote.create_date + currentNote.author;
 
-        if(noteID === currentNoteID){
+        if (noteID === currentNoteID) {
             data.notes[i].completed_status = true;
 
+            let converted = JSON.stringify(data);
+            fs.writeFileSync(filename, converted, "utf8");
+
             let dataToSend = {
-                deleteStatus: 0
-            }
+                markedComplete: 0
+            };
 
-            res.send(dataToSend)
+            res.send(dataToSend);
 
-            return;
-            //break; // stops the whole loop.
+            return; 
         } else {
-            continue; // goals to the next loop.
+            continue;
         }
-
-        let dataToSend = {
-            deleteStatus: 1
-        }
-
-        res.send(dataToSend);
     }
+
+    let dataToSend = {
+        markedComplete: 1
+    };
+
+    res.send(dataToSend);
 
 });

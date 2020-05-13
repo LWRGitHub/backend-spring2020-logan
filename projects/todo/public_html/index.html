@@ -1,50 +1,64 @@
-<!DOCTYPE html>
+<!doctype html>
 
 <html lang="en">
-
     <head>
-        <meta sharset="utf-8">
+    <meta charset="utf-8">
 
-        <title>Todo "App"</title>
-        <meta name="description" content="The HTML5 Express Page">
-        <meta name="Logan" content="SitePoint">
+    <title>Todo "App"</title>
+    <meta name="description" content="The HTML5 Herald">
+    <meta name="Logan" content="SitePoint">
 
-        <style>
-          
-        </style>
+    <style></style>
 
-        <!-- jQuery -->
-        <script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+    <!-- jQuery -->
+    <script
+    src="https://code.jquery.com/jquery-3.5.0.min.js"
+    integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+    crossorigin="anonymous"></script>
 
     </head>
 
     <body>
 
+        <a href="http://localhost:3000/readNotes">Notes</a> 
+
+        <input id="note" type="text">
+        <button id="saveButton">Save</button>
+
         <script>
             $(document).ready(() => {
 
+                let note = $("#note").contents;
+                let saveButton = $("#saveButton")
+
                 let objectToSend = {
-                    updated_note: "Do Something.",
+                    note: note,
                     author: "Logan",
-                    creat_date: 158868606117
+                    create_date: 1588868606117
                 };
 
-                $.post("http://localhost:3000/markComplete", objectToSend, (dataToGet) =>{
-                    console.log(`Server says: ${dataToGet.markedCompleted}`)
+                /*
+                $.post("http://localhost:3000/markComplete", objectToSend, (dataToGet) => {
+                console.log(`Server says: ${dataToGet.markedComplete}`);
                 });
+                */
 
-                // $.post("http://localhost:3000/updateNote", objectToSend, (dataToGet) => 
-                // {
-                //     console.log(`Server says: ${dataToGet.updatedStatus}`)
+                // $.post("http://localhost:3000/updateNote", objectToSend, (dataToGet) => {
+                //   console.log(`Server says: ${dataToGet.updatedStatus}`);
                 // });
+                
+                 saveButton.click($.post("http://localhost:3000/newNote", objectToSend, (dataToGet) => {
+                     console.log(dataToGet);
+                 }));
 
-                // $.post("http://localhost:3000/newNote", objectToSend, (dataToGet) => {
-                //     console.log(dataToGet);
+                // $.post("http://localhost:3000/readNotes", {}, (dataToGet) => {
+
+                //   let allNotesArray = dataToGet.notes;
+
+                //   console.log(allNotesArray);
                 // });
 
             });
         </script>
-
     </body>
-
 </html>
