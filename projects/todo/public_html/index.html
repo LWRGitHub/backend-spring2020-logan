@@ -28,14 +28,9 @@
         <script>
             $(document).ready(() => {
 
-                let note = $("#note").contents;
-                let saveButton = $("#saveButton")
+                let saveButton = $("#saveButton");
 
-                let objectToSend = {
-                    note: note,
-                    author: "Logan",
-                    create_date: 1588868606117
-                };
+               
 
                 /*
                 $.post("http://localhost:3000/markComplete", objectToSend, (dataToGet) => {
@@ -47,9 +42,28 @@
                 //   console.log(`Server says: ${dataToGet.updatedStatus}`);
                 // });
                 
-                 saveButton.click($.post("http://localhost:3000/newNote", objectToSend, (dataToGet) => {
-                     console.log(dataToGet);
-                 }));
+                saveButton.click(() =>{
+                    let note = $("#note").val(); 
+                    
+                    let objectToSend = {
+                        note: note,
+                        author: "Logan"
+                    };
+
+                    $.post("http://localhost:3000/newNote", objectToSend, (dataToGet) => {
+                        console.log("Server Responded!")
+                    });
+
+                });
+
+
+
+
+
+                //  saveButton.click($.post("http://localhost:3000/newNote", objectToSend, (dataToGet) => {
+                //     let note = $("#note").val(); 
+                //     console.log(dataToGet);
+                //  }));
 
                 // $.post("http://localhost:3000/readNotes", {}, (dataToGet) => {
 

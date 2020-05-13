@@ -17,7 +17,7 @@ const filename = "./users/default_user.json";
 let data = {
     "notes": []
 };
-
+ 
 if (fs.existsSync(filename)){
     const read = fs.readFileSync(filename, "utf8");
     data = JSON.parse(read);
