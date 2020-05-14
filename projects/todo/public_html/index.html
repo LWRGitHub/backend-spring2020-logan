@@ -140,6 +140,8 @@
                             $("#saveButton").click(() =>{
                                 let note = $("#note").val(); 
 
+                                //console.log(note);
+
                                 let objectToSend = {
                                     note: note,
                                     author: "Logan"
@@ -155,7 +157,7 @@
 
                             for(let i = 0; i < allNotesArray.length; i++){
                                 // console.log(`${allNotesArray[i].create_date}`);
-                                // console.log(e.target.id);
+                                 //console.log(e.target.id);
                                 if(e.target.id === `${allNotesArray[i].create_date}`){
 
                                     //console.log("match!");

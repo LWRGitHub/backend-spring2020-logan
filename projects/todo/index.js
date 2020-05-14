@@ -27,8 +27,7 @@ if (fs.existsSync(filename)){
 }
 
 class Note {
-    constructor(noteTitel, note, author){
-        //this.noteTitel = noteTitel
+    constructor(note, author){
         this.note = note;
         this.author = author;
         this.completed_status = false;
@@ -43,6 +42,7 @@ app.post("/newNote", (request, response) =>{
     let recievedData = request.body;
     let newNoteObject = new Note(recievedData.note, recievedData.author);
 
+    console.log(newNoteObject);
     data.notes.push(newNoteObject);
     // data.notes.push(new Note(request.body.note, request.body.author));
 
