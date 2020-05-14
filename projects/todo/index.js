@@ -27,7 +27,8 @@ if (fs.existsSync(filename)){
 }
 
 class Note {
-    constructor(note, author){
+    constructor(noteTitel, note, author){
+        //this.noteTitel = noteTitel
         this.note = note;
         this.author = author;
         this.completed_status = false;
