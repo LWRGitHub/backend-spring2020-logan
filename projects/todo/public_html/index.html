@@ -58,7 +58,7 @@
                 //         author: "Logan"
                 //     };
 
-                //     $.post("http://localhost:3000/newNote", objectToSend, (dataToGet) => {
+                //     $.post("http://localhost:3000/deleteNote, objectToSend, (dataToGet) => {
                 //         console.log("Server Responded!")
                 //     });
 
@@ -135,6 +135,7 @@
 
                             $("#close").click(() => {
                                 $("#close").parent().parent().remove();
+                                location.reload();
                             });
 
                             $("#saveButton").click(() =>{
@@ -167,31 +168,44 @@
                                         <div id="popup-container">
                                         <textarea id="note" type="text" rows="20" cols="50">${allNotesArray[i].note}</textarea>
                                             <button id="saveButton">Save</button>
+                                            <button id="delete">Delete</button>
                                         </div>
                                     </div>`;
+
+                                    $("body").append(myPopup);
 
                                     $("#saveButton").click(() =>{
 
                                         let note = $("#note").val(); 
 
-                                        // allNotesArray[i].note = note
-
                                         let objectToSend = {
-                                            note: note,
+                                            updated_note: note,
+                                            create_date: allNotesArray[i].create_date,
                                             author: "Logan"
-                                        };
-
-                                        // $.post("http://localhost:3000/updateNote", objectToSend, (dataToGet) => {
-                                        //     console.log("Server Responded!")
-                                        // });
+                                        }
 
                                         $.post("http://localhost:3000/updateNote", objectToSend, (dataToGet) => {
-                                          console.log(`Server says: ${dataToGet.updatedStatus}`);
+                                          //console.log(`Server says: ${dataToGet.updatedStatus}`);
                                         });
 
                                     });
 
-                                    $("body").append(myPopup);
+                                    $("#delete").click(() =>{
+                                        
+                                        let objectToSend = {
+                                            create_date: allNotesArray[i].create_date,
+                                            author: "Logan"
+                                        }
+
+                                        $.post("http://localhost:3000/deleteNote", objectToSend, (dataToGet) => {
+                                            console.log(`Server says: ${dataToGet.updatedStatus}`);
+                                        });
+
+                                        location.reload();
+
+                                    });
+
+                                    
 
                                     $("#popup-block").css({
                                         "position": "absolute",
@@ -216,6 +230,7 @@
 
                                     $("#close").click(() => {
                                         $("#close").parent().parent().remove();
+                                        location.reload();
                                     });
                                 }
                             }
