@@ -8,7 +8,19 @@
     <meta name="description" content="The HTML5 Herald">
     <meta name="Logan" content="SitePoint">
 
-    <style></style>
+    <!-- <link href="../style.css.css"> -->
+    <style>
+        button{
+            background-color: #ffe679;
+            border-radius: 12px;
+            border: 1px solid rgb(148, 148, 148);
+        }
+        button:hover {
+            background-color: rgba(76, 122, 175, 0.342); /* Green */
+            color: white;
+            border: 1px solid rgb(63, 162, 255);
+        }
+    </style>
 
     <!-- jQuery -->
     <script
@@ -20,12 +32,6 @@
 
     <body>
 
-        <!-- <a href="http://localhost:3000/readNotes">Notes</a>  -->
-
-        <!-- <input id="noteTitel" type="text"> -->
-        <!-- <input id="note" type="text"> -->
-        <!-- <button id="saveButton">Save</button> -->
-
         <button id="NewNote">New Note</button>
 
         <div id="notes"></div>
@@ -33,72 +39,39 @@
         <script>
             $(document).ready(() => {
 
-                
-
-               
-
-                /*
-                $.post("http://localhost:3000/markComplete", objectToSend, (dataToGet) => {
-                console.log(`Server says: ${dataToGet.markedComplete}`);
-                });
-                */
-
-                // $.post("http://localhost:3000/updateNote", objectToSend, (dataToGet) => {
-                //   console.log(`Server says: ${dataToGet.updatedStatus}`);
-                // });
-                
-                // saveButton.click(() =>{
-                //     let note = $("#note").val(); 
-                //     //let noteTitel = $("#noteTitel").val(); 
-
-
-                //     let objectToSend = {
-                //         //noteTitel: noteTitel,
-                //         note: note,
-                //         author: "Logan"
-                //     };
-
-                //     $.post("http://localhost:3000/deleteNote, objectToSend, (dataToGet) => {
-                //         console.log("Server Responded!")
-                //     });
-
-                // });
-
-
-
-
-
-                //  saveButton.click($.post("http://localhost:3000/newNote", objectToSend, (dataToGet) => {
-                //     let note = $("#note").val(); 
-                //     console.log(dataToGet);
-                //  }));
-
                 let arrCreateDate = [];
 
                 $.post("http://localhost:3000/readNotes", {}, (dataToGet) => {
 
                     let allNotesArray = dataToGet.notes;
-                    //console.log(allNotesArray);
+
+                    
 
                     let divContent = ``;
-                    //let arrCreateDate = [];
                     for(let i = 0; i < allNotesArray.length; i++){
-                        
-                        //str = `${str}\nNote${i} ${allNotesArray[i].create_date}` 
 
-                        let button = `<button id=${allNotesArray[i].create_date}>Note${i} ${allNotesArray[i].create_date}</button>`
+                        let first7 = ""
+
+                        if(allNotesArray[i].note.length < 7){
+                            for(let num = 0; num < allNotesArray[i].note.length; num++){
+                                first7 = `${first7}${allNotesArray[i].note[num]}`
+                            }
+                        } else {
+                            for(let num = 0; num < 7; num++){
+                                first7 = `${first7}${allNotesArray[i].note[num]}`
+                            }
+                            first7 = `${first7}...`
+                        }
+                    
+                        let button = `<button id=${allNotesArray[i].create_date}>${first7}</button>`
 
                         divContent = divContent + '\n' + button;
-                        
-                        //console.log(`${allNotesArray[i].create_date}`)
 
                         arrCreateDate.push(`${allNotesArray[i].create_date}`);
                     }
                     $("#notes").html(`${divContent}`);
 
                     $("button").click((e) => {
-
-                        console.log(allNotesArray);
 
                         if(e.target.id === "NewNote"){
                             
@@ -141,15 +114,12 @@
                             $("#saveButton").click(() =>{
                                 let note = $("#note").val(); 
 
-                                //console.log(note);
-
                                 let objectToSend = {
                                     note: note,
                                     author: "Logan"
                                 };
 
                                 $.post("http://localhost:3000/newNote", objectToSend, (dataToGet) => {
-                                    console.log("Server Responded!")
                                 });
 
                             });
@@ -157,12 +127,7 @@
                         } else {
 
                             for(let i = 0; i < allNotesArray.length; i++){
-                                // console.log(`${allNotesArray[i].create_date}`);
-                                 //console.log(e.target.id);
                                 if(e.target.id === `${allNotesArray[i].create_date}`){
-
-                                    //console.log("match!");
-                                    // Setting up our popup.
                                     let myPopup = `
                                     <div id="popup-block">
                                         <div id="popup-container">
@@ -185,7 +150,6 @@
                                         }
 
                                         $.post("http://localhost:3000/updateNote", objectToSend, (dataToGet) => {
-                                          //console.log(`Server says: ${dataToGet.updatedStatus}`);
                                         });
 
                                     });
@@ -198,7 +162,6 @@
                                         }
 
                                         $.post("http://localhost:3000/deleteNote", objectToSend, (dataToGet) => {
-                                            console.log(`Server says: ${dataToGet.updatedStatus}`);
                                         });
 
                                         location.reload();
