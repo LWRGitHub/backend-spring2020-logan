@@ -1,5 +1,5 @@
-1) what movies were filmed in SF
+1) what locations were used
 2) what movie filmed at the most locations
-3) whats the oldes & newest
+3) most common director
 4) what are the names of all the diferent movie commpanies
-5) what movie took the longest 
+5) what is the most common actor
