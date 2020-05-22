@@ -1,5 +1,5 @@
 const fs = require('fs');
-const filename = 'Film_Locations_in_San_Francisco.csv';
+const filename = 'tab-film.tsv';
 
 let dataset = fs.readFileSync(filename, 'utf8');
 
@@ -8,7 +8,7 @@ let datasetArray = dataset.split('\n');
 let convertedEntriesArray = [];
 
 for(let i = 0; i < datasetArray.length; i++){
-    let currentEntry = datasetArray[i].split(",");
+    let currentEntry = datasetArray[i].split("\t");
 
     currentEntry.splice(8, 8);
 
@@ -44,7 +44,7 @@ let locations = {};
 for(let i = 0; i < statisticArray.length; i++){
     //console.log(typeof statisticArray[i].locations);
     if(typeof statisticArray[i].locations === "string"){
-
+        //console.log(statisticArray[i].company);
         if(!locations[statisticArray[i].company]){
             locations[statisticArray[i].company] = {
                 adressCount: 0,
